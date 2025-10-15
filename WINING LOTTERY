@@ -1,0 +1,29 @@
+ vector<int> freq(1 << 10, 0);
+
+    // Convert tickets to bitmasks
+    for (const string& ticket : tickets) {
+        int mask = 0;
+        for (char ch : ticket) {
+            int digit = ch - '0';
+            mask |= (1 << digit);
+        }
+        freq[mask]++;
+    }
+
+    long long ans = 0;
+    int fullMask = (1 << 10) - 1;
+
+    // Count pairs whose union contains all digits
+    for (int i = 0; i < (1 << 10); i++) {
+        for (int j = i; j < (1 << 10); j++) {
+            if ((i | j) == fullMask) {
+                if (i == j) {
+                    ans += 1LL * freq[i] * (freq[i] - 1) / 2;
+                } else {
+                    ans += 1LL * freq[i] * freq[j];
+                }
+            }
+        }
+    }
+
+    return ans;
