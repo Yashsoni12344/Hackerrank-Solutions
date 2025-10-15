@@ -1,0 +1,24 @@
+bool found = false;
+
+    for (long i = p; i <= q; i++) {
+        long sq = i * i;
+        string sq_str = to_string(sq);
+        int len = sq_str.length();
+        int d = to_string(i).length();
+
+        // Split into left and right parts
+        string right = sq_str.substr(len - d);
+        string left = (len - d > 0) ? sq_str.substr(0, len - d) : "0";
+
+        long left_val = stol(left);
+        long right_val = stol(right);
+
+        if (left_val + right_val == i) {
+            cout << i << " ";
+            found = true;
+        }
+    }
+
+    if (!found) {
+        cout << "INVALID RANGE";
+    }
